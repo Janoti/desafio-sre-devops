@@ -1,0 +1,41 @@
+version: "3.8"
+
+services: 
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes: 
+      - .:/app
+      - '/app/node_modules'
+    depends_on: 
+       mysql_server:
+        condition: service_healthy
+    
+  
+  mysql_server:
+    image: mysql:8.0
+    container_name: mysql-server
+    volumes:
+      - ./config/dump:/docker-entrypoint-initdb.d
+    environment: 
+      - MYSQL_DATABASE=desafio      
+      - MYSQL_ROOT_PASSWORD=root      
+    restart: unless-stopped
+    healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 10s
+            retries: 5
+
+  admin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - mysql_server
+    ports:
+      - 80:80
+    environment:
+      - PMA_ARBITRARY=1
+
+ 
