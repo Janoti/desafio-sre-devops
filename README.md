@@ -1,6 +1,8 @@
 # Stone Challenge
  
- 
+ <!--START_SECTION:waka-->
+<!--END_SECTION:waka-->
+
 ## Para rodar a aplicação localmente em containers Docker:
 
     * Instale o Docker (linux): https://docs.docker.com/engine/install/ubuntu/
