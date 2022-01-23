@@ -3,6 +3,8 @@
  <!--START_SECTION:waka-->
 <!--END_SECTION:waka-->
 
+[![Waka Readme](https://github.com/Janoti/desafio-sre-devops/actions/workflows/main.yml/badge.svg)](https://github.com/Janoti/desafio-sre-devops/actions/workflows/main.yml)
+
 ## Para rodar a aplicação localmente em containers Docker:
 
     * Instale o Docker (linux): https://docs.docker.com/engine/install/ubuntu/
