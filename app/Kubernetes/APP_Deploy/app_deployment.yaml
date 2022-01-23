@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: janotijr/desafio:v2
+          image: janotijr/desafio:v3
           ports:
-            - containerPort: 3000
+            - containerPort: 5000
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:

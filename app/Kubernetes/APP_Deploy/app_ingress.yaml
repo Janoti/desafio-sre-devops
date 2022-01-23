@@ -14,5 +14,6 @@ spec:
           service:
             name: nodejs-app
             port:
-              number: 3000
+              number: 5000
+              
   

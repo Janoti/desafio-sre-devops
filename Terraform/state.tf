@@ -1,13 +1,13 @@
-#terraform {
-#backend "s3" {
-#   bucket         = "desafio-stone-bucket"
-#   key            = "state/terraform.tfstate"
-#   region         = "us-east-2"
-#   encrypt        = true
-#   kms_key_id     = "alias/terraform-bucket-key"
-#   dynamodb_table = "terraform-state"
-# }
-#}
+terraform {
+backend "s3" {
+   bucket         = "desafio-stone-bucket"
+   key            = "state/terraform.tfstate"
+   region         = "us-east-2"
+   encrypt        = true
+   kms_key_id     = "alias/terraform-bucket-key"
+   dynamodb_table = "terraform-state"
+ }
+}
 
 resource "aws_kms_key" "terraform-bucket-key" {
  description             = "This key is used to encrypt bucket objects"

@@ -6,7 +6,7 @@ namespace   := desafio-ns
 image-name  := nodeapp
 docker-repo := janotijr/desafio
 ecr-repo    := ecr_example_repo
-version     := v2
+version     := v3
 #################################################
 
 #DOCKER LOCAL
@@ -29,14 +29,14 @@ service-ip: # returns IP address of Ingress (app)
 	kubectl describe ingress -n $(namespace) |grep Address
 	
 k8s-local:
-	minikube start
+	minikube start --extra-config=apiserver.service-node-port-range=2999-3000
 	minikube addons enable ingress
 	eval $(minikube docker-env)
 	kubectl create namespace $(namespace)
 	kubectl apply -f ./Kubernetes/DB_Deploy/mysql_pv.yaml,./Kubernetes/DB_Deploy/mysql_pvc.yaml,./Kubernetes/DB_Deploy/mysql_deployment.yaml,./Kubernetes/DB_Deploy/secrets.yaml,./Kubernetes/DB_Deploy/mysql_service.yaml --namespace=$(namespace) 
 	kubectl apply -f ./Kubernetes/APP_Deploy/app_deployment.yaml,./Kubernetes/APP_Deploy/app_ingress.yaml,./Kubernetes/APP_Deploy/app_service.yaml --namespace=$(namespace) 
 	kubectl autoscale deployment/nodejs-app --cpu-percent=50 --min=$(min) --max=$(max) -n $(namespace)
-	minikube service nodejs-app --namespace=$(namespace) --url
+	minikube service nodejs-app --namespace=$(namespace) --url 
 
 del_k8s:
 	kubectl delete all --all -n $(namespace)

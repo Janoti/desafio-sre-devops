@@ -4,8 +4,8 @@ bucket       := desafio-stone-bucket
 region       := us-east-2
 cluster_name := myapp-cluster
 
- ### Obs: cluster_name é o mesmo que o modeulo do Terraform cria.
- ### Caso mude o nome, mudar tb em variables.tf       
+ ### Obs: cluster_name é o mesmo que o modulo do Terraform cria.
+ ###     
 		  
 #################################################
 
@@ -24,9 +24,12 @@ deploy:
 	kubectl apply -f ../app/Kubernetes/APP_Deploy/app_deployment.yaml,../app/Kubernetes/APP_Deploy/app_ingress.yaml,../app/Kubernetes/APP_Deploy/app_service.yaml
 
 cluster:
-	aws emr describe-cluster --name myapp-cluster --region us-east-2
+	aws eks describe-cluster --name myapp-cluster --region us-east-2
 
 terraform:
-	terraform init -input=false
-	terraform plan -out=tfplan -input=false
-	terraform apply -input=false tfplan 
+	terraform init 
+	terraform plan -out=tfplane
+	terraform apply tfplan 
+
+terraform_refresh:
+	  terraform apply -refresh-only
