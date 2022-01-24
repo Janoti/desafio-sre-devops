@@ -16,5 +16,5 @@ jobs:
       - uses: athul/waka-readme@master
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: <janoti/janoti> # optional, By default, it will automatically use the repository who's executing the workflow.
