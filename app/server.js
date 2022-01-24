@@ -10,13 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // define a root route
 app.get('/', (req, res) => {
-  res.send("STONE SRE - JANOTI - WELCOME");
+  res.send("STONE SRE - JANOTI - WELCOME - v6");
 });
 // Require employee routes
 const userRoutes = require('./src/routes/users.routes')
 // using as middleware
 app.use('/api/v1/users', userRoutes)
 // listen for requests
+
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });

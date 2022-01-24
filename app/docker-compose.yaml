@@ -26,8 +26,8 @@ services:
     restart: unless-stopped
     healthcheck:
             test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-            timeout: 10s
-            retries: 5
+            timeout: 4s
+            retries: 2
 
   admin:
     image: phpmyadmin/phpmyadmin:latest

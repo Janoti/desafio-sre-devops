@@ -12,7 +12,6 @@ User.findAll(function(err, user) {
 });
 };
 
-
 exports.create = function(req, res) {
 const new_user = new User(req.body);
 //handles null error
@@ -35,3 +34,12 @@ User.findByCPF(req.params.cpf, function(err, user) {
 });
 };
 
+exports.count = function(res) {
+User.count(function(err, user) {
+  console.log('Counter');
+  if (err)
+  res.json(user);
+  console.log('Counter', user);
+});
+};
+  

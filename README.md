@@ -83,11 +83,11 @@
 * Para os testes de carga contra a API localmente e na Cloud foi utilizado o K6
 * Site [k6.io](K6.io)
 
-*  Vá para o diretório /Load_Test
+*  Vá para o diretório /Load_test
 
-* Instale o K6 com Grafana e Influxdb (via Docker) clonando o projeto dentro do diretório atual:
+* Instale o K6 com Grafana e Influxdb (via Docker):
 
-``` make k6_grafana_install```
+``` make k6_install```
 
 * Teste da API de Retorno de Usuários:
 

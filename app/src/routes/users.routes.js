@@ -7,6 +7,9 @@ router.get('/', userController.findAll);
 router.post('/', userController.create);
 // Retrieve a single user with id
 router.get('/:cpf', userController.findByCPF);
+// Count all Users added
+router.get('/:count', userController.count);
+
 
 
 

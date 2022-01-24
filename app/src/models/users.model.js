@@ -43,6 +43,18 @@ else{
 }
 });
 };
+User.count = function (result) {
+  dbConn.query("Select count(cpf) from users as total", function (err, res) {
+  if(err) {
+    console.log("error: ", err);
+    result(null, err);
+  }
+  else{
+    result(null, res);
+  }
+  });
+  };
+
 /* User.update = function(cpf, user, result){
 dbConn.query("UPDATE users SET name=?,last_name=?,cpf=?,email=?,birthdate=? WHERE cfp = ?", [user.name,user.last_name,user.cpf,user.email,user.birthdate], function (err, res) {
 if(err) {
