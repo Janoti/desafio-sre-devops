@@ -15,6 +15,13 @@ spec:
       containers:
         - name: nodejs-app
           image: janotijr/desafio:v3
+          resources:
+            limits:
+              cpu: "1"
+              memory: "100Mi"
+            requests:
+              cpu: "0.5"   
+              memory: "30Mi"      
           ports:
             - containerPort: 5000
           env:

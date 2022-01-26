@@ -28,8 +28,9 @@ cluster:
 
 terraform:
 	terraform init 
-	terraform plan -out=tfplane
+	terraform plan -out=tfplan
 	terraform apply tfplan 
 
 terraform_refresh:
-	  terraform apply -refresh-only
+	terraform init
+	terraform apply -refresh-only

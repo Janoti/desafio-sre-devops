@@ -28,9 +28,13 @@ push:
 service-ip: # returns IP address of Ingress (app)
 	kubectl describe ingress -n $(namespace) |grep Address
 	
-k8s-local:
+k8s:
+	eval $(minikube docker-env)
+	docker build ./ -t $(image-name)
+	docker tag $(image-name) $(docker-repo):$(version)
 	minikube start --extra-config=apiserver.service-node-port-range=2999-3000
 	minikube addons enable ingress
+	minikube addons enable metrics-server
 	eval $(minikube docker-env)
 	kubectl create namespace $(namespace)
 	kubectl apply -f ./Kubernetes/DB_Deploy/mysql_pv.yaml,./Kubernetes/DB_Deploy/mysql_pvc.yaml,./Kubernetes/DB_Deploy/mysql_deployment.yaml,./Kubernetes/DB_Deploy/secrets.yaml,./Kubernetes/DB_Deploy/mysql_service.yaml --namespace=$(namespace) 
@@ -41,7 +45,8 @@ k8s-local:
 del_k8s:
 	kubectl delete all --all -n $(namespace)
 	kubectl delete namespace $(namespace)
-
+	
+#todo #1
 push_ecr:
 	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 723595992567.dkr.ecr.us-east-1.amazonaws.com
 	docker build -t ecr_example_repo .
