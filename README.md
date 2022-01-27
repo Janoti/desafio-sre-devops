@@ -1,9 +1,9 @@
-# Stone Challenge
+# Devops Project
  
-<!--START_SECTION:waka-->
-<!--END_SECTION:waka-->
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
-[![Waka Readme](https://github.com/Janoti/desafio-sre-devops/actions/workflows/main.yml/badge.svg)](https://github.com/Janoti/desafio-sre-devops/actions/workflows/main.yml)
+## Descrição do Projeto
+<p align="justify"> colcar algo </p>
 
 ## Para rodar a aplicação localmente em containers Docker:
 
@@ -15,7 +15,9 @@
 
     * Dentro do diretório, execute:
 
-   ``` $make local ```
+    ~~~javascript
+     $make local
+    ~~~
 
     * O nome da imagem está definido na seção Variables do arquivo Makefile
  
@@ -34,7 +36,7 @@
    ``` $make k8s-local ```
     
 
-## Rotas do app local (Docker)
+## :hammer: Rotas do app local (Docker)
 
      Retorna lista de usuários:
 ```  http://127.0.0.1:5000/api/v1/users ```
@@ -100,15 +102,15 @@
 
 * Instale o K6 com Grafana e Influxdb (via Docker):
 
-``` make k6_install```
+    ``` make k6_install```
 
 * Teste da API de Retorno de Usuários:
 
-``` make k6_get_teste ```
+    ``` make k6_get_teste ```
 
 * Teste da API de Insert de Usuários:
 
-``` make k6_insert_test ```
+         make k6_insert_test
 
 * Os resultados serão apresentados em um Dashboard do grafana. O link será mostrado no final da execução da instrução.
        
