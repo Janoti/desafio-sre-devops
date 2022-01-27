@@ -5,112 +5,118 @@
 ## Descrição do Projeto
 <p align="justify"> colcar algo </p>
 
-## Para rodar a aplicação localmente em containers Docker:
+## Para rodar o app localmente em containers Docker:
 
-    * Instale o Docker (linux): https://docs.docker.com/engine/install/ubuntu/
+- Instale o Docker (linux): https://docs.docker.com/engine/install/ubuntu/
 
-    * Clone o repositorio 
+- Clone o repositorio 
+- Entre no diretório **/app**    
+- Dentro do diretório, execute:
 
-    * Entre no diretório /app    
-
-    * Dentro do diretório, execute:
-
-    ~~~javascript
-     $make local
-    ~~~
-
-    * O nome da imagem está definido na seção Variables do arquivo Makefile
+    ```make local```
+   
  
-      Abra seu navegador e digite: http://127.0.0.1:5000/api/v1/users
+ - Abra seu navegador e digite: http://127.0.0.1:5000/api/v1/users
 
-    * Para dar Stop no ambiente, execute:
+ - Para dar Stop no ambiente, execute:
 
-   ``` $make stop-local ```
+   ``` make stop-local ```
     
-## Para rodar localmente no cluster Kubernetes (Minikube):
+## Para rodar o app localmente em um cluster Kubernetes (Minikube):
     
-    * Instale o Minikube no Linux: https://minikube.sigs.k8s.io/docs/start/
+- Instale o Minikube (Linux): https://minikube.sigs.k8s.io/docs/start/
+- Dentro do diretório **/app**, execute:
 
-    * Dentro do diretório /app, execute:
+   ``` make k8s-local ```
 
-   ``` $make k8s-local ```
+- Parar stopar o minikube e deletar toda a infra criada:
+
+   ``` make del_k8s```
     
 
-## :hammer: Rotas do app local (Docker)
+## :hammer: Rotas da app (Docker)
 
-     Retorna lista de usuários:
-```  http://127.0.0.1:5000/api/v1/users ```
+-  **Retorna lista de usuários:** http://127.0.0.1:5000/api/v1/users
+-  **Pesquisa por CPF:** http://127.0.0.1:5000/api/v1/users/"cpf"
+-  **Inserir usuário:** Utilize o Postman ou substitua os dados exemplo abaixo e execute no terminal:
 
-     Pesquisa por CPF: 
-``` http://127.0.0.1:5000/api/v1/users/<cpf>```
+    ```
+    curl --location --request POST 'http://localhost:5000/api/v1/users' \--header 'Content-Type: application/json' \--data-raw '{ "name": "InsiraSeuNome", "last_name": "InsiraSeu Sobrenome", "cpf": 122312321321, "email": "ninguemusa@yahoo.com.br", "birthdate": "19/01/1989"}' 
+    ```
 
-     Inserir usuário: Utilize o Postman ou substitua os dados exemplo abaixo e execute no terminal:
+# Amazon Web Services
 
-``` curl --location --request POST 'http://localhost:5000/api/v1/users' \--header 'Content-Type: application/json' \--data-raw '{ "name": "InsiraSeuNome", "last_name": "InsiraSeu Sobrenome", "cpf": 122312321321, "email": "ninguemusa@yahoo.com.br", "birthdate": "19/01/1989"}' ```
+- Certifique-se que AWS Cli e o Terraform estejam instalados e configurados
+- Acesse o diretório **/Terraform**, execute:
 
-## Amazon Web Services
+    ``` $make terraform ```
 
-    * Certifique-se que AWS Cli e o Terraform estejam instaladaos e configurados
+- Aguarde alguns minutos até a infra ser criada na AWS. Esse primeiro run do    Terraform irá criar toda a infra. Após a criação, **edite o arquivo state.tf e descomente todo o bloco do Backend**. Isso é necessário pois primeiro deve ser criado o bucket e a tabela do Dynamo.
 
-    * Acesse o diretorio /Terraform, execute:
-``` $make terraform ```
+-  Após a criação da infra, bucket e Dynamo e **descomentado o trecho de código**, execute novamente:
 
-    * Aguarde alguns minutos até a infra ser criada na AWS. Esse primeiro run do Terraform irá criar toda a infra. Após a criação, edite o arquivo state.tf e descomente todo o bloco do Backend. Isso é necessário pois primeiro deve ser criado o bucket e a tabela do Dynamo.
+    ``` $make terraform_refresh ```
 
-    * Após a criação da infra, bucket e Dynamo e descomentado o trecho de código, execute novamente:
+- Faça um Update no Kubeconfig para acessar o cluster criado:
 
-``` $make terraform_refresh ```
+    ``` $make retrive_auth ```
 
-    * Faça um Update no Kubeconfig para acessar o cluster criado:
+- Agora faça o Deploy nos manisfetos do Kubernetes (Banco e APP) na infra criada:
 
-``` $make retrive_auth ```
+    ``` $make deploy ```
 
-    * Agora faça o Deploy nos manisfetos do Kubernetes (Banco e APP) na infra criada:
+- Podemos verificar nossa infra com os comandos:
 
-``` $make deploy ```
+    ``` $make cluster ```
 
-    * Podemos verificar nossa infra com os comandos:
+- Para acessar a aplicação, execute o comando abaixo, copie o endereço e cole no navegador (acrescentar a porta no final da url :5000):
 
- ``` $make cluster ```
+     ``` $make external_ip ```
 
-    * Para acessar a aplicação, execute o comando abaixo, copie o endereço e cole no navegador (acrescentar a porta no final da url :5000):
- ``` $make external_ip ```
+# Monitoramento 
 
-## Monitoramento 
-
-* Kubernetes Dashboard na AWS
+## Kubernetes Dashboard na AWS
     
-    * Após ter criado toda a infra na aws, vamos criar um Dashboard para monitorar nosso cluster.
-    * Vá para o diretório /Monitoring
-    * Execute: ``` make deploy ```
-    * Isso ira criar a autorizaçao e dar os direitos necessários para fazer o deploy do Dashboard no cluster.
+- Após ter criado toda a infra na aws, vamos criar um Dashboard para monitorar nosso cluster.
+- Vá para o diretório **/Monitoring**
+- Execute: 
+    ``` make deploy ```
+
+- Isso ira criar a autorizaçao e dar os direitos necessários para fazer o deploy do Dashboard no cluster.    
+- Para gerar o Token necessário para logar, execute:  
+
+    ``` make get_token ```
+
+- Copie o token gerado
+- Execute: 
+
+    ```make expose```
+
+- Abra o Daskboard nesse endereço: 
     
-    * Execute:  ``` make get_token ```
-    * Copie o token gerado
-    * Execute: ```make expose```
-    * Abra o Daskboard nesse endereço:  http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
-    * Selecione a opção Token e cole o token copiado.
+     http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
+
+- Selecione a opção Token e cole o token copiado.
 
 
 
-## Teste de Carga (K6) - Local e Cloud (AWS)
+# Teste de Carga (K6) - Local e Cloud (AWS)
 
-* Para os testes de carga contra a API localmente e na Cloud foi utilizado o K6
-* Site [k6.io](K6.io)
+- Para os testes de carga contra a API localmente e na Cloud foi utilizado o K6 -  [k6.io](K6.io)
 
-*  Vá para o diretório /Load_test
+-  Vá para o diretório **/Load_test**
 
-* Instale o K6 com Grafana e Influxdb (via Docker):
+- Instale o K6 com Grafana e Influxdb (via Docker):
 
-    ``` make k6_install```
+   ``` make k6_install```
 
-* Teste da API de Retorno de Usuários:
+- Teste da API de Retorno de Usuários:
 
     ``` make k6_get_teste ```
 
-* Teste da API de Insert de Usuários:
+- Teste da API de Insert de Usuários:
 
-         make k6_insert_test
+    ``` make k6_insert_test ```
 
-* Os resultados serão apresentados em um Dashboard do grafana. O link será mostrado no final da execução da instrução.
+- Os resultados serão apresentados em um Dashboard do grafana. O link será mostrado no final da execução da instrução.
        
