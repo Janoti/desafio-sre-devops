@@ -76,7 +76,20 @@
 
 ## Monitoramento 
 
-* Grafana e Prometheus ? Implementar Cloud
+* Kubernetes Dashboard na AWS
+    
+    * Após ter criado toda a infra na aws, vamos criar um Dashboard para monitorar nosso cluster.
+    * Vá para o diretório /Monitoring
+    * Execute: ``` make deploy ```
+    * Isso ira criar a autorizaçao e dar os direitos necessários para fazer o deploy do Dashboard no cluster.
+    
+    * Execute:  ``` make get_token ```
+    * Copie o token gerado
+    * Execute: ```make expose```
+    * Abra o Daskboard nesse endereço:  http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
+    * Selecione a opção Token e cole o token copiado.
+
+
 
 ## Teste de Carga (K6) - Local e Cloud (AWS)
 

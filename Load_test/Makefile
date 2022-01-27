@@ -30,5 +30,5 @@ k6_cloud:
 #	echo "Resultados no Dashboard -> http://localhost:3000/d/k6/k6-load-testing-results"
 
 clean:
-	cd ./K6 && docker-compose down --volumes
+	docker-compose down --volumes
 
