@@ -15,7 +15,7 @@ external_ip:
 create_bucket:
 	aws s3api create-bucket --bucket $(bucket) --region $(region) --create-bucket-configuration LocationConstraint=$(region)
 
-retrive_auth:
+retrieve_auth:
 	aws sts get-caller-identity
 	aws eks --region $(region) update-kubeconfig --name $(cluster_name)
 

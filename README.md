@@ -3,7 +3,7 @@
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 ## Descrição do Projeto
-<p align="justify"> Terraform, CI/CD, Monitoramento, Docker e Kubernetes </p>
+<p align="justify"> Terraform, CI/CD, Monitoramento, Teste de Carga (K6), Docker e Kubernetes </p>
 
 ## Para rodar o app localmente em containers Docker:
 
@@ -49,29 +49,29 @@
 - Certifique-se que AWS Cli e o Terraform estejam instalados e configurados
 - Acesse o diretório **/Terraform**, execute:
 
-    ``` $make terraform ```
+    ``` make terraform ```
 
 - Aguarde alguns minutos até a infra ser criada na AWS. Esse primeiro run do    Terraform irá criar toda a infra. Após a criação, **edite o arquivo state.tf e descomente todo o bloco do Backend**. Isso é necessário pois primeiro deve ser criado o bucket e a tabela do Dynamo.
 
 -  Após a criação da infra, bucket e Dynamo e **descomentado o trecho de código**, execute novamente:
 
-    ``` $make terraform_refresh ```
+    ``` make terraform_refresh ```
 
 - Faça um Update no Kubeconfig para acessar o cluster criado:
 
-    ``` $make retrive_auth ```
+    ``` make retrieve_auth ```
 
 - Agora faça o Deploy nos manisfetos do Kubernetes (Banco e APP) na infra criada:
 
-    ``` $make deploy ```
+    ``` make deploy ```
 
 - Podemos verificar nossa infra com os comandos:
 
-    ``` $make cluster ```
+    ``` make cluster ```
 
 - Para acessar a aplicação, execute o comando abaixo, copie o endereço e cole no navegador (acrescentar a porta no final da url :5000):
 
-     ``` $make external_ip ```
+    ``` make external_ip ```
 
 # Monitoramento 
 
@@ -108,15 +108,15 @@
 
 - Instale o K6 com Grafana e Influxdb (via Docker):
 
-   ``` make k6_install```
+   ``` make k6_install ```
 
 - Teste da API de Retorno de Usuários:
 
-    ``` make k6_get_teste ```
+   ``` make k6_get_teste ```
 
 - Teste da API de Insert de Usuários:
 
-    ``` make k6_insert_test ```
+   ``` make k6_insert_test ```
 
 - Os resultados serão apresentados em um Dashboard do grafana. O link será mostrado no final da execução da instrução.
        

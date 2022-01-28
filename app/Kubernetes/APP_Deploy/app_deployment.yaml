@@ -20,8 +20,8 @@ spec:
               cpu: "1"
               memory: "100Mi"
             requests:
-              cpu: "0.5"   
-              memory: "30Mi"      
+              cpu: "0.5"
+              memory: "30Mi"
           ports:
             - containerPort: 5000
           env:
