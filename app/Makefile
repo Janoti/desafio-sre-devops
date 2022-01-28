@@ -36,6 +36,7 @@ k8s:
 	minikube addons enable ingress
 	minikube addons enable metrics-server
 	eval $(minikube docker-env)
+	
 	kubectl create namespace $(namespace)
 	kubectl apply -f ./Kubernetes/DB_Deploy/mysql_pv.yaml,./Kubernetes/DB_Deploy/mysql_pvc.yaml,./Kubernetes/DB_Deploy/mysql_deployment.yaml,./Kubernetes/DB_Deploy/secrets.yaml,./Kubernetes/DB_Deploy/mysql_service.yaml --namespace=$(namespace) 
 	kubectl apply -f ./Kubernetes/APP_Deploy/app_deployment.yaml,./Kubernetes/APP_Deploy/app_ingress.yaml,./Kubernetes/APP_Deploy/app_service.yaml --namespace=$(namespace) 
