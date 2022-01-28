@@ -3,7 +3,7 @@
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 ## Descrição do Projeto
-<p align="justify"> colcar algo </p>
+<p align="justify"> Terraform, CI/CD, Monitoramento, Docker e Kubernetes </p>
 
 ## Para rodar o app localmente em containers Docker:
 
