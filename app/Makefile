@@ -6,7 +6,7 @@ namespace   := desafio-ns
 image-name  := nodeapp
 docker-repo := janotijr/desafio
 ecr-repo    := ecr_example_repo
-version     := v3
+version     := latest
 #################################################
 
 #DOCKER LOCAL
@@ -36,7 +36,7 @@ k8s:
 	minikube addons enable ingress
 	minikube addons enable metrics-server
 	eval $(minikube docker-env)
-	
+
 	kubectl create namespace $(namespace)
 	kubectl apply -f ./Kubernetes/DB_Deploy/mysql_pv.yaml,./Kubernetes/DB_Deploy/mysql_pvc.yaml,./Kubernetes/DB_Deploy/mysql_deployment.yaml,./Kubernetes/DB_Deploy/secrets.yaml,./Kubernetes/DB_Deploy/mysql_service.yaml --namespace=$(namespace) 
 	kubectl apply -f ./Kubernetes/APP_Deploy/app_deployment.yaml,./Kubernetes/APP_Deploy/app_ingress.yaml,./Kubernetes/APP_Deploy/app_service.yaml --namespace=$(namespace) 
@@ -46,6 +46,9 @@ k8s:
 del_k8s:
 	kubectl delete all --all -n $(namespace)
 	kubectl delete namespace $(namespace)
+
+img-update-k8s: # faz o update da versão da imagem utilizada no cluster local. Imagem deve estar publicada no Docker Hub
+	kubectl set image deployment/nodejs-app stats=$(docker-repo):$(version) --namespace=$(namespace) --record=true
 	
 #todo #1
 push_ecr:
