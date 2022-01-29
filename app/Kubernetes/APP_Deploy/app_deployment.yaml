@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: janotijr/desafio:v3
+          image: janotijr/desafio:latest
           resources:
             limits:
               cpu: "1"

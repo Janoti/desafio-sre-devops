@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = Date.now();
 // create express app
 const app = express();
 // Setup server port
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // define a root route
 app.get("/", (req, res) => {
-  res.send("STONE SRE - JANOTI - WELCOME - v6");
+  res.send("DEVOPS/SRE - JANOTI - WELCOME - " + date);
 });
 // Require employee routes
 const userRoutes = require("./src/routes/users.routes");
