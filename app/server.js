@@ -1,24 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const date_ob = Date.now();
+const date_ob = new Date();
 // current date
 // adjust 0 before single digit date
-let date = ("0" + date_ob.getDate()).slice(-2);
+const date = ("0" + date_ob.getDate()).slice(-2);
 
 // current month
-let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+const month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
 // current year
-let year = date_ob.getFullYear();
+const year = date_ob.getFullYear();
 
 // current hours
-let hours = date_ob.getHours();
+const hours = date_ob.getHours();
 
 // current minutes
-let minutes = date_ob.getMinutes();
+const minutes = date_ob.getMinutes();
 
 // current seconds
-let seconds = date_ob.getSeconds(); 
+const seconds = date_ob.getSeconds(); 
  
 // create express app
 const app = express();
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // define a root route
 app.get("/", (req, res) => {
-  res.send("DEVOPS/SRE - JANOTI - WELCOME - " + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+  res.send("DEVOPS/SRE - JANOTI - WELCOME ##### (Error verion) ##### - " + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 });
 // Require employee routes
 const userRoutes = require("./src/routes/users.routes");

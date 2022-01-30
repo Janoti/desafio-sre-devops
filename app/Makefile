@@ -6,7 +6,7 @@ namespace   := desafio-ns
 image-name  := nodeapp
 docker-repo := janotijr/desafio
 ecr-repo    := ecr_example_repo
-version     := latest
+version     := err-version
 #################################################
 
 #DOCKER LOCAL
@@ -26,7 +26,7 @@ push:
 
 # KUBERNETES LOCAL
 service-ip: # returns IP address of Ingress (app)
-	kubectl describe ingress -n $(namespace) |grep Address
+	kubectl describe ingress -n $(namespace) | grep Address
 	
 k8s:
 	eval $(minikube docker-env)
@@ -48,11 +48,15 @@ del_k8s:
 	kubectl delete namespace $(namespace)
 
 img-update-k8s: # faz o update da versão da imagem utilizada no cluster local. Imagem deve estar publicada no Docker Hub
-	kubectl set image deployment/nodejs-app stats=$(docker-repo):$(version) --namespace=$(namespace) --record=true
+	kubectl set image deployment/nodejs-app nodejs-app=$(docker-repo):$(version) 
+	kubectl rollout status deploy/nodejs-app -n $(namespace)
+
 	
-#todo #1
-push_ecr:
-	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 723595992567.dkr.ecr.us-east-1.amazonaws.com
-	docker build -t ecr_example_repo .
-	docker tag ecr_example_repo:latest 723595992567.dkr.ecr.us-east-1.amazonaws.com/ecr_example_repo:latest
-	docker push 723595992567.dkr.ecr.us-east-1.amazonaws.com/ecr_example_repo:latest
+rollback_status:
+	kubectl rollout status deploy/nodejs-app 
+	kubectl rollout history deploy/nodejs-app
+
+rollback:
+	kubectl rollout undo deployment/nodejs-app  -n $(namespace)
+
+

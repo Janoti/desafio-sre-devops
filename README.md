@@ -29,6 +29,18 @@
 
    ``` make k8s-local ```
 
+- Para mudar a imagem que o cluster usa:
+   
+   ``` make img-update-k8s ```
+
+- Rollback para o deployment anterior:
+
+   ``` make rollback ```
+
+- Para acompanhar o status de atualização:
+
+   ``` make rollbak_status ```
+
 - Parar stopar o minikube e deletar toda a infra criada:
 
    ``` make del_k8s```
@@ -53,9 +65,9 @@
 
 - Aguarde alguns minutos até a infra ser criada na AWS. Esse primeiro run do    Terraform irá criar toda a infra. Após a criação, **edite o arquivo state.tf e descomente todo o bloco do Backend**. Isso é necessário pois primeiro deve ser criado o bucket e a tabela do Dynamo.
 
--  Após a criação da infra, bucket e Dynamo e **descomentado o trecho de código**, execute novamente:
+-  Após a criação da infra, bucket e Dynamo e **descomentado o trecho de código**, execute:
 
-    ``` make terraform_refresh ```
+    ``` terraform init ```
 
 - Faça um Update no Kubeconfig para acessar o cluster criado:
 

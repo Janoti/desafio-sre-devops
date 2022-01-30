@@ -1,4 +1,4 @@
-# Variables 
+# Variables Terraform
 #################################################
 bucket       := desafio-stone-bucket
 region       := us-east-2
@@ -33,4 +33,4 @@ terraform:
 
 terraform_refresh:
 	terraform init
-	terraform apply -refresh-only
+#   terraform apply -refresh-only
