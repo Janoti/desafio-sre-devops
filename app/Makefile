@@ -6,7 +6,7 @@ namespace   := desafio-ns
 image-name  := nodeapp
 docker-repo := janotijr/desafio
 ecr-repo    := ecr_example_repo
-version     := err-version
+version     := test
 #################################################
 
 #DOCKER LOCAL

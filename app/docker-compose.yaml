@@ -21,8 +21,9 @@ services:
     volumes:
       - ./config/dump:/docker-entrypoint-initdb.d
     environment: 
-      - MYSQL_DATABASE=desafio      
-      - MYSQL_ROOT_PASSWORD=root      
+      - MYSQ_HOST=${MYSQL_HOST}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}      
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}     
     restart: unless-stopped
     healthcheck:
             test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]

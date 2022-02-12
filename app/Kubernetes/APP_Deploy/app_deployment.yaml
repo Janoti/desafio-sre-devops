@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: janotijr/desafio:latest
-          imagePullPolicy : IfNotPresent
+          image: janotijr/desafio:test
+          imagePullPolicy : Always
           resources:
             limits:
               cpu: "1"
@@ -25,7 +25,7 @@ spec:
               memory: "30Mi"
           ports:
             - containerPort: 5000
-          env:
+          env:           
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
