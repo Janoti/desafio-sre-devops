@@ -1,4 +1,4 @@
-FROM node:stretch-slim
+FROM node:current-alpine3.14
 
 #Create app directory
 WORKDIR /usr/src/app
